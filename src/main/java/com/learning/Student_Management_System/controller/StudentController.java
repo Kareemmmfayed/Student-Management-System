@@ -7,4 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/students")
 public class StudentController {
 
+//    @PostMapping
+//    public StudentRequest addStudent(@RequestBody StudentRequest studentRequest) {
+//        return
+//    }
 }
