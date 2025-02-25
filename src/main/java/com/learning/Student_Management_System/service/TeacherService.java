@@ -1,8 +1,11 @@
 package com.learning.Student_Management_System.service;
 
 import com.learning.Student_Management_System.dto.teacher.TeacherRequestDTO;
-import com.learning.Student_Management_System.entity.Teacher;
+import com.learning.Student_Management_System.dto.teacher.TeacherResponseDTO;
+
+import java.util.List;
 
 public interface TeacherService {
-    Teacher addTeacher(TeacherRequestDTO teacherRequestDTO);
+    TeacherResponseDTO addTeacher(TeacherRequestDTO teacherRequestDTO);
+    List<TeacherResponseDTO> getAllTeachers();
 }

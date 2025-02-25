@@ -1,11 +1,17 @@
 package com.learning.Student_Management_System.dto.group;
 
-import com.learning.Student_Management_System.entity.Grade;
-import com.learning.Student_Management_System.entity.Subject;
-import com.learning.Student_Management_System.entity.Teacher;
+import com.learning.Student_Management_System.enums.Grade;
+import com.learning.Student_Management_System.enums.Subject;
+import jakarta.validation.constraints.NotNull;
 
 public record GroupRequestDTO(
+
+        @NotNull(message = "You must provide the Subject of the group!")
         Subject subject,
-        Teacher teacher,
+
+        @NotNull(message = "You must provide the Id of the teacher responsible for the group!")
+        Long teacherId,
+
+        @NotNull(message = "You must provide the grade of the students of the group!")
         Grade grade
 ) {}

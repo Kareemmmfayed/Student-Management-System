@@ -1,6 +1,7 @@
 package com.learning.Student_Management_System.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.learning.Student_Management_System.enums.Grade;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,17 +33,17 @@ public class Student {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Column(name = "grade", nullable = false)
+    private Grade grade;
+
     @Column(name = "active", nullable = false)
-    private Boolean isActive = true;
+    private Boolean isActive;
 
     @OneToMany(mappedBy = "student", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JsonManagedReference
     private List<Payment> payments;
 
-    @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
-    )
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_group",
             joinColumns = @JoinColumn(name = "student_id"),

@@ -1,4 +1,4 @@
-package com.learning.Student_Management_System.entity;
+package com.learning.Student_Management_System.enums;
 
 public enum Grade {
     FIRST_GRADE,

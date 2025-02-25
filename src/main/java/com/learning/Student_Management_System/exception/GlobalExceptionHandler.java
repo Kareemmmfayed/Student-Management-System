@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.rmi.StubNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,5 +23,33 @@ public class GlobalExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TeacherNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleTeacherNotFoundException(Exception e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", e.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TeacherNotSuitableException.class)
+    public ResponseEntity<Map<String, String>> handleTeacherNotSuitableException(Exception e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", e.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(StubNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleStudentNotFoundException(Exception e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", e.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(StudentNotSuitableForGroupException.class)
+    public ResponseEntity<Map<String, String>> handleStudentNotSuitableException(Exception e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", e.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
 }

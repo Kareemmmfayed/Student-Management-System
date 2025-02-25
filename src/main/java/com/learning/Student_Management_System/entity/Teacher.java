@@ -1,5 +1,7 @@
 package com.learning.Student_Management_System.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.learning.Student_Management_System.enums.Subject;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +40,10 @@ public class Teacher {
     @Column(name = "subject", nullable = false)
     private Subject subject;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(
+            mappedBy = "teacher",
+            cascade = CascadeType.ALL
+    )
+    @JsonManagedReference
     private List<Group> groups;
 }

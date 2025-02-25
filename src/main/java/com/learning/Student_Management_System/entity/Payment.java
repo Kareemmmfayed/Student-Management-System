@@ -25,10 +25,7 @@ public class Payment {
     @CreationTimestamp
     private LocalDateTime paidAt;
 
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
-    )
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "student_id", nullable = false)
     @JsonBackReference
     private Student student;

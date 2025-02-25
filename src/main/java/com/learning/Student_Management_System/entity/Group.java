@@ -2,6 +2,8 @@ package com.learning.Student_Management_System.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.learning.Student_Management_System.enums.Grade;
+import com.learning.Student_Management_System.enums.Subject;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,10 +31,7 @@ public class Group {
     @Column(name = "grade", nullable = false)
     private Grade grade;
 
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
-    )
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "teacher_id")
     @JsonBackReference
     private Teacher teacher;
@@ -41,10 +40,7 @@ public class Group {
     @JsonManagedReference
     private List<Period> periods;
 
-    @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
-    )
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "student_group",
             joinColumns = @JoinColumn(name = "group_id"),
