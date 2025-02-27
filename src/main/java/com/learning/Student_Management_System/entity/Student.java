@@ -5,6 +5,7 @@ import com.learning.Student_Management_System.enums.Grade;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -58,4 +59,10 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Test> tests;
+
+    public void addPayment(Payment payment) {
+        if (this.payments == null) this.payments = new ArrayList<>();
+
+        this.payments.add(payment);
+    }
 }

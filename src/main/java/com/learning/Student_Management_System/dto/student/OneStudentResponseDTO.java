@@ -9,22 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Builder
-public record StudentResponseDTO(
+public record OneStudentResponseDTO(
         Long id,
         String firstName,
         String lastName,
         String phoneNumber,
-        Grade grade,
-        List<Payment> payments
+        String address,
+        Grade grade
 ) {
-    public static StudentResponseDTO makeStudentResponseDTOFromStudent(Student student) {
-        return StudentResponseDTO.builder()
+    public static OneStudentResponseDTO makeStudentResponseDTOFromStudent(Student student) {
+
+        return OneStudentResponseDTO.builder()
                 .id(student.getId())
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName())
                 .phoneNumber(student.getPhoneNumber())
+                .address(student.getAddress())
                 .grade(student.getGrade())
-                .payments(student.getPayments())
                 .build();
     }
 }

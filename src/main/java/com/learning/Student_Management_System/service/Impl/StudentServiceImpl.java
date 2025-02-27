@@ -1,11 +1,10 @@
 package com.learning.Student_Management_System.service.Impl;
 
-import com.learning.Student_Management_System.dto.student.StudentRequestDTO;
-import com.learning.Student_Management_System.dto.student.StudentResponseDTO;
+import com.learning.Student_Management_System.dto.student.*;
 import com.learning.Student_Management_System.enums.Grade;
 import com.learning.Student_Management_System.entity.Group;
 import com.learning.Student_Management_System.entity.Student;
-import com.learning.Student_Management_System.exception.GroupNotFoundException;
+import com.learning.Student_Management_System.exception.ResourceNotFoundException;
 import com.learning.Student_Management_System.exception.StudentNotSuitableForGroupException;
 import com.learning.Student_Management_System.repository.GroupRepository;
 import com.learning.Student_Management_System.repository.StudentRepository;
@@ -14,9 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +26,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public StudentResponseDTO addStudent(StudentRequestDTO studentRequestDTO) {
-        return StudentResponseDTO.makeStudentResponseDTOFromStudent(
+    public OneStudentResponseDTO addStudent(StudentRequestDTO studentRequestDTO) {
+        return OneStudentResponseDTO.makeStudentResponseDTOFromStudent(
                 studentRepository.save(
                 Student.builder()
                         .firstName(studentRequestDTO.firstName())
@@ -44,11 +43,35 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public List<StudentResponseDTO> getAllStudents() {
-        return studentRepository.findAll()
-                .stream()
-                .map(StudentResponseDTO::makeStudentResponseDTOFromStudent)
-                .collect(Collectors.toList());
+    public List<StudentAPIResponseDTO> getAllStudents(FetchStudentsDTO fetchStudentsDTO) {
+        List<Student> students = studentRepository.findAll();
+
+        return checkIfStudentPaidThatMonth(students, fetchStudentsDTO.monthDate());
+    }
+
+    private List<StudentAPIResponseDTO> checkIfStudentPaidThatMonth(List<Student> students, YearMonth monthDate) {
+        List<StudentAPIResponseDTO> results = new ArrayList<>();
+
+        for (Student student : students) {
+            boolean didPay = false;
+            for (PaymentRequestDTO payment : student.getPayments().stream().map(PaymentRequestDTO::makeDTOFromPayment).toList()) {
+                if (payment.paidAt().equals(monthDate)) {
+                    didPay = true;
+                    break;
+                }
+            }
+
+            results.add(StudentAPIResponseDTO.builder()
+                    .id(student.getId())
+                    .firstName(student.getFirstName())
+                    .lastName(student.getLastName())
+                    .phoneNumber(student.getPhoneNumber())
+                    .grade(student.getGrade())
+                    .paid(didPay)
+                    .build());
+        }
+
+        return results;
     }
 
     private Group checkIfStudentGradeIsSuitableForGroup(Group group, Grade grade) {
@@ -66,6 +89,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     private Group findGroupById(Long groupId) {
-        return groupRepository.findById(groupId).orElseThrow(() -> new GroupNotFoundException("Group with id : [" + groupId + "] doesn't exist!"));
+        return groupRepository.findById(groupId).orElseThrow(() -> new ResourceNotFoundException("Group with id : [" + groupId + "] doesn't exist!"));
     }
 }

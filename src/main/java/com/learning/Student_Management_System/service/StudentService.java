@@ -1,11 +1,13 @@
 package com.learning.Student_Management_System.service;
 
+import com.learning.Student_Management_System.dto.student.FetchStudentsDTO;
+import com.learning.Student_Management_System.dto.student.StudentAPIResponseDTO;
 import com.learning.Student_Management_System.dto.student.StudentRequestDTO;
-import com.learning.Student_Management_System.dto.student.StudentResponseDTO;
+import com.learning.Student_Management_System.dto.student.OneStudentResponseDTO;
 
 import java.util.List;
 
 public interface StudentService {
-    StudentResponseDTO addStudent(StudentRequestDTO studentRequestDTO);
-    List<StudentResponseDTO> getAllStudents();
+    OneStudentResponseDTO addStudent(StudentRequestDTO studentRequestDTO);
+    List<StudentAPIResponseDTO> getAllStudents(FetchStudentsDTO fetchStudentsDTO);
 }

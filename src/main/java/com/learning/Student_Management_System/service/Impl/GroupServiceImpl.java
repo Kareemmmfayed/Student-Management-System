@@ -4,7 +4,7 @@ import com.learning.Student_Management_System.dto.group.GroupRequestDTO;
 import com.learning.Student_Management_System.entity.Group;
 import com.learning.Student_Management_System.enums.Subject;
 import com.learning.Student_Management_System.entity.Teacher;
-import com.learning.Student_Management_System.exception.TeacherNotFoundException;
+import com.learning.Student_Management_System.exception.ResourceNotFoundException;
 import com.learning.Student_Management_System.exception.TeacherNotSuitableException;
 import com.learning.Student_Management_System.repository.GroupRepository;
 import com.learning.Student_Management_System.repository.TeacherRepository;
@@ -36,7 +36,7 @@ public class GroupServiceImpl implements GroupService {
     private Teacher findSingleTeacherById(Long teacherId) {
         return teacherRepository
                 .findById(teacherId)
-                .orElseThrow(() -> new TeacherNotFoundException("The teacher with id : [" + teacherId + "] doesn't exit!"));
+                .orElseThrow(() -> new ResourceNotFoundException("The teacher with id : [" + teacherId + "] doesn't exit!"));
     }
 
     private Teacher checkIfTeacherTeachesThisSubject(Teacher teacher, Subject subject) {

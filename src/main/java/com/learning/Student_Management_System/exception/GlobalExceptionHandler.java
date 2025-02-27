@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(TeacherNotFoundException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleTeacherNotFoundException(Exception e) {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", e.getMessage());
@@ -37,13 +37,6 @@ public class GlobalExceptionHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", e.getMessage());
         return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(StubNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleStudentNotFoundException(Exception e) {
-        Map<String, String> errors = new HashMap<>();
-        errors.put("error", e.getMessage());
-        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(StudentNotSuitableForGroupException.class)
