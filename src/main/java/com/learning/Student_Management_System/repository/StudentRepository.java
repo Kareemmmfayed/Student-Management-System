@@ -12,5 +12,5 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query("SELECT s FROM Student s WHERE s.grade = ?1")
-    List<Student> findAllByGrade(Grade grade);
+    List<Student> findAllWithGrade(Grade grade);
 }

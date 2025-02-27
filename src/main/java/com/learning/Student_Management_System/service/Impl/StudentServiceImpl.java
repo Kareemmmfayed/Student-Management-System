@@ -50,7 +50,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     private List<StudentResponseDTO> getAllStudentsInAGrade(YearMonth monthDate, Grade grade) {
-        List<Student> students = studentRepository.findAllByGrade(grade);
+        List<Student> students = studentRepository.findAllWithGrade(grade);
 
         return checkIfStudentPaidThatMonth(students, monthDate);
     }
