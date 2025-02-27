@@ -5,7 +5,7 @@ public enum Subject {
     ENGLISH,
     FRENCH,
     GERMAN,
-    MATH,
+    MATHS,
     PHYSICS,
     CHEMISTRY,
     GEOGRAPHY,

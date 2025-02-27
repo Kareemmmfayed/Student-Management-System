@@ -4,7 +4,7 @@ import com.learning.Student_Management_System.enums.Grade;
 import lombok.Builder;
 
 @Builder
-public record StudentAPIResponseDTO(
+public record StudentResponseDTO(
         Long id,
         String firstName,
         String lastName,

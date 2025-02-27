@@ -5,10 +5,7 @@ import com.learning.Student_Management_System.entity.Group;
 import com.learning.Student_Management_System.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/groups")
@@ -17,8 +14,8 @@ public class GroupController {
 
     private final GroupService groupService;
 
-    @PostMapping
-    public ResponseEntity<Group> addGroup(@RequestBody GroupRequestDTO groupRequestDTO) {
-        return ResponseEntity.ok(groupService.AddGroup(groupRequestDTO));
+    @PostMapping("/{teacherId}")
+    public ResponseEntity<Group> addGroup(@PathVariable Long teacherId, @RequestBody GroupRequestDTO groupRequestDTO) {
+        return ResponseEntity.ok(groupService.AddGroup(teacherId ,groupRequestDTO));
     }
 }

@@ -9,9 +9,6 @@ public record GroupRequestDTO(
         @NotNull(message = "You must provide the Subject of the group!")
         Subject subject,
 
-        @NotNull(message = "You must provide the Id of the teacher responsible for the group!")
-        Long teacherId,
-
         @NotNull(message = "You must provide the grade of the students of the group!")
         Grade grade
 ) {}

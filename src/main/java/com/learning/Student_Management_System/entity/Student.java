@@ -34,6 +34,7 @@ public class Student {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "grade", nullable = false)
     private Grade grade;
 

@@ -43,14 +43,26 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public List<StudentAPIResponseDTO> getAllStudents(FetchStudentsDTO fetchStudentsDTO) {
-        List<Student> students = studentRepository.findAll();
+    public List<StudentResponseDTO> getStudents(YearMonth monthDate, Grade grade) {
+        if(grade == null) return getAllStudents(monthDate);
 
-        return checkIfStudentPaidThatMonth(students, fetchStudentsDTO.monthDate());
+        return getAllStudentsInAGrade(monthDate, grade);
     }
 
-    private List<StudentAPIResponseDTO> checkIfStudentPaidThatMonth(List<Student> students, YearMonth monthDate) {
-        List<StudentAPIResponseDTO> results = new ArrayList<>();
+    private List<StudentResponseDTO> getAllStudentsInAGrade(YearMonth monthDate, Grade grade) {
+        List<Student> students = studentRepository.findAllByGrade(grade);
+
+        return checkIfStudentPaidThatMonth(students, monthDate);
+    }
+
+    private List<StudentResponseDTO> getAllStudents(YearMonth monthDate) {
+        List<Student> students = studentRepository.findAll();
+
+        return checkIfStudentPaidThatMonth(students, monthDate);
+    }
+
+    private List<StudentResponseDTO> checkIfStudentPaidThatMonth(List<Student> students, YearMonth monthDate) {
+        List<StudentResponseDTO> results = new ArrayList<>();
 
         for (Student student : students) {
             boolean didPay = false;
@@ -61,7 +73,7 @@ public class StudentServiceImpl implements StudentService {
                 }
             }
 
-            results.add(StudentAPIResponseDTO.builder()
+            results.add(StudentResponseDTO.builder()
                     .id(student.getId())
                     .firstName(student.getFirstName())
                     .lastName(student.getLastName())

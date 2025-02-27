@@ -22,12 +22,12 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public Group AddGroup(GroupRequestDTO groupRequestDTO) {
+    public Group AddGroup(Long teacherId, GroupRequestDTO groupRequestDTO) {
         return groupRepository.save(
                 Group
                         .builder()
                         .subject(groupRequestDTO.subject())
-                        .teacher(checkIfTeacherTeachesThisSubject(findSingleTeacherById(groupRequestDTO.teacherId()), groupRequestDTO.subject()))
+                        .teacher(checkIfTeacherTeachesThisSubject(findSingleTeacherById(teacherId), groupRequestDTO.subject()))
                         .grade(groupRequestDTO.grade())
                         .build()
         );

@@ -4,5 +4,5 @@ import com.learning.Student_Management_System.dto.group.GroupRequestDTO;
 import com.learning.Student_Management_System.entity.Group;
 
 public interface GroupService {
-    Group AddGroup(GroupRequestDTO groupRequestDTO);
+    Group AddGroup(Long teacherId,GroupRequestDTO groupRequestDTO);
 }
