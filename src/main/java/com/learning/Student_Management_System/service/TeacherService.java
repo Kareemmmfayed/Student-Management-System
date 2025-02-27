@@ -8,4 +8,5 @@ import java.util.List;
 public interface TeacherService {
     TeacherResponseDTO addTeacher(TeacherRequestDTO teacherRequestDTO);
     List<TeacherResponseDTO> getAllTeachers();
+    TeacherResponseDTO getOneTeacher(Long teacherId);
 }

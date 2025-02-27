@@ -3,6 +3,7 @@ package com.learning.Student_Management_System.service.Impl;
 import com.learning.Student_Management_System.dto.teacher.TeacherRequestDTO;
 import com.learning.Student_Management_System.dto.teacher.TeacherResponseDTO;
 import com.learning.Student_Management_System.entity.Teacher;
+import com.learning.Student_Management_System.exception.ResourceNotFoundException;
 import com.learning.Student_Management_System.repository.TeacherRepository;
 import com.learning.Student_Management_System.service.TeacherService;
 import lombok.RequiredArgsConstructor;
@@ -42,5 +43,14 @@ public class TeacherServiceImpl implements TeacherService {
                 .stream()
                 .map(TeacherResponseDTO::makeTeacherResponseDTOFromTeacher)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public TeacherResponseDTO getOneTeacher(Long teacherId) {
+        return TeacherResponseDTO.makeTeacherResponseDTOFromTeacher(getSingleTeacherById(teacherId));
+    }
+
+    private Teacher getSingleTeacherById(Long teacherId) {
+        return teacherRepository.findById(teacherId).orElseThrow(() -> new ResourceNotFoundException("Teacher with id : [" + teacherId + "] is not found!"));
     }
 }
