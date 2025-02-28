@@ -27,6 +27,7 @@ public class GroupServiceImpl implements GroupService {
     private final TeacherRepository teacherRepository;
 
     @Override
+    @Transactional
     public List<GroupResponseDTO> getGroups(Grade grade, int pageNum, int pageSize) {
         if (grade == null) return getAllGroups(pageNum, pageSize);
 

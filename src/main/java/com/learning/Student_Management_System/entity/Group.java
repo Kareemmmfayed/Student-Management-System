@@ -7,6 +7,7 @@ import com.learning.Student_Management_System.enums.Subject;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -55,4 +56,10 @@ public class Group {
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Test> tests;
+
+    public void addPeriod(Period period) {
+        if (this.periods == null) this.periods = new ArrayList<>();
+
+        this.periods.add(period);
+    }
 }

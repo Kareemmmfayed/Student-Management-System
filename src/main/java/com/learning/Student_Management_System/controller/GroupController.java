@@ -2,9 +2,11 @@ package com.learning.Student_Management_System.controller;
 
 import com.learning.Student_Management_System.dto.group.GroupRequestDTO;
 import com.learning.Student_Management_System.dto.group.GroupResponseDTO;
+import com.learning.Student_Management_System.dto.group.PeriodRequestDTO;
 import com.learning.Student_Management_System.entity.Group;
 import com.learning.Student_Management_System.enums.Grade;
 import com.learning.Student_Management_System.service.GroupService;
+import com.learning.Student_Management_System.service.PeriodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.List;
 public class GroupController {
 
     private final GroupService groupService;
+    private final PeriodService periodService;
 
     @GetMapping
     public ResponseEntity<List<GroupResponseDTO>> getGroups(
@@ -30,5 +33,13 @@ public class GroupController {
     @PostMapping("/{teacherId}")
     public ResponseEntity<Group> addGroup(@PathVariable Long teacherId, @RequestBody GroupRequestDTO groupRequestDTO) {
         return ResponseEntity.ok(groupService.AddGroup(teacherId ,groupRequestDTO));
+    }
+
+    @PostMapping("/{groupId}/periods")
+    public ResponseEntity<String> addPeriod(
+            @PathVariable Long groupId,
+            @RequestBody PeriodRequestDTO periodRequestDTO
+    ) {
+        return ResponseEntity.ok(periodService.addPeriod(groupId, periodRequestDTO));
     }
 }
