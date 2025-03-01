@@ -10,10 +10,4 @@ import java.time.YearMonth;
 public record PaymentRequestDTO(
         @NotNull
         YearMonth paidAt
-) {
-        public static PaymentRequestDTO makeDTOFromPayment(Payment payment) {
-                return PaymentRequestDTO.builder()
-                        .paidAt(payment.getPaidAt())
-                        .build();
-        }
-}
+) {}

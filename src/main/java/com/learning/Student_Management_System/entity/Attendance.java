@@ -3,8 +3,9 @@ package com.learning.Student_Management_System.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "attendance")
@@ -21,7 +22,7 @@ public class Attendance {
     private Long Id;
 
     @Column(name = "lesson_date", nullable = false)
-    private LocalDateTime lessonDate;
+    private LocalDate lessonDate;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "student_id")

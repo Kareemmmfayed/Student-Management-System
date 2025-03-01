@@ -1,6 +1,7 @@
 package com.learning.Student_Management_System.service.Impl;
 
 import com.learning.Student_Management_System.dto.student.*;
+import com.learning.Student_Management_System.entity.Payment;
 import com.learning.Student_Management_System.enums.Grade;
 import com.learning.Student_Management_System.entity.Group;
 import com.learning.Student_Management_System.entity.Student;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,46 +46,37 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public List<StudentResponseDTO> getStudents(YearMonth monthDate, Grade grade) {
-        if(grade == null) return getAllStudents(monthDate);
+        LocalDate date = monthDate.atDay(1);
 
-        return getAllStudentsInAGrade(monthDate, grade);
+        if(grade == null) return getAllStudents(date);
+
+        return getAllStudentsInAGrade(date, grade);
     }
 
-    private List<StudentResponseDTO> getAllStudentsInAGrade(YearMonth monthDate, Grade grade) {
+    private List<StudentResponseDTO> getAllStudentsInAGrade(LocalDate monthDate, Grade grade) {
         List<Student> students = studentRepository.findAllWithGrade(grade);
 
         return checkIfStudentPaidThatMonth(students, monthDate);
     }
 
-    private List<StudentResponseDTO> getAllStudents(YearMonth monthDate) {
+    private List<StudentResponseDTO> getAllStudents(LocalDate monthDate) {
         List<Student> students = studentRepository.findAll();
 
         return checkIfStudentPaidThatMonth(students, monthDate);
     }
 
-    private List<StudentResponseDTO> checkIfStudentPaidThatMonth(List<Student> students, YearMonth monthDate) {
-        List<StudentResponseDTO> results = new ArrayList<>();
-
-        for (Student student : students) {
-            boolean didPay = false;
-            for (PaymentRequestDTO payment : student.getPayments().stream().map(PaymentRequestDTO::makeDTOFromPayment).toList()) {
-                if (payment.paidAt().equals(monthDate)) {
-                    didPay = true;
-                    break;
-                }
-            }
-
-            results.add(StudentResponseDTO.builder()
-                    .id(student.getId())
-                    .firstName(student.getFirstName())
-                    .lastName(student.getLastName())
-                    .phoneNumber(student.getPhoneNumber())
-                    .grade(student.getGrade())
-                    .paid(didPay)
-                    .build());
-        }
-
-        return results;
+    private List<StudentResponseDTO> checkIfStudentPaidThatMonth(List<Student> students, LocalDate monthDate) {
+        return students.stream()
+                .map(student -> StudentResponseDTO.builder()
+                        .id(student.getId())
+                        .firstName(student.getFirstName())
+                        .lastName(student.getLastName())
+                        .phoneNumber(student.getPhoneNumber())
+                        .grade(student.getGrade())
+                        .paid(student.getPayments().stream()
+                                .anyMatch(payment -> payment.getPaidAt().equals(monthDate)))
+                        .build())
+                .toList();
     }
 
     private Group checkIfStudentGradeIsSuitableForGroup(Group group, Grade grade) {

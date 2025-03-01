@@ -2,7 +2,6 @@ package com.learning.Student_Management_System.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.learning.Student_Management_System.enums.Day;
-import com.learning.Student_Management_System.util.HourMinuteAttributeConverter;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,7 +27,6 @@ public class Period {
     private Day day;
 
     @Column(name = "start_date", nullable = false)
-    @Convert(converter = HourMinuteAttributeConverter.class)
     private LocalTime startDate;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

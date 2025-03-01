@@ -45,4 +45,11 @@ public class GlobalExceptionHandler {
         errors.put("error", e.getMessage());
         return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(StudentNotInGroup.class)
+    public ResponseEntity<Map<String, String>> handleStudentNotInGroupException(Exception e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", e.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
 }

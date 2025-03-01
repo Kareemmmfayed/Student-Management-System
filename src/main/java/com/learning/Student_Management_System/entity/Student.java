@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "students")
@@ -65,5 +66,11 @@ public class Student {
         if (this.payments == null) this.payments = new ArrayList<>();
 
         this.payments.add(payment);
+    }
+
+    public void attendStudent(Attendance attendance) {
+        if (this.attendances == null) this.attendances = new ArrayList<>();
+
+        this.attendances.add(attendance);
     }
 }
