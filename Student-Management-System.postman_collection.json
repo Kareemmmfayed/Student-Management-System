@@ -1,0 +1,445 @@
+{
+	"info": {
+		"_postman_id": "7f05a1f7-ad4a-4881-93da-3a1ed5c22153",
+		"name": "Student-Management-System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30411458"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "student-management-system",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "kareem",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "kareem",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/fayed/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"fayed",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teacher",
+			"item": [
+				{
+					"name": "Add teacher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Hadi\",\n    \"lastName\": \"oldman\",\n    \"phoneNumber\": \"01277741174\",\n    \"email\": \"hadi@old.com\",\n    \"address\": \"tanta\",\n    \"subject\": \"CHEMISTRY\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/teachers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"teachers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all teachers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJRR293ZWRkNDBwRlQ4Z21Sd1AycTNmenNiWDJJemhtRnhkdGNyN3hHaS1JIn0.eyJleHAiOjE3NDEyNzMxMTgsImlhdCI6MTc0MTI3MjgxOCwianRpIjoiZWVlMGE1M2QtZDMyMS00NTdhLTgwYTItNmNjYjFhNmU1ZjhlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9mYXllZCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmM2YzNGY3MS1lNmVmLTQ1ZWMtOTE0My1jZjg3YzgxZmRhNGUiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzdHVkZW50LW1hbmFnZW1lbnQtc3lzdGVtIiwic2lkIjoiNzc4OWJmMDMtNGU3NS00NWVjLWJmZWEtZjcyMjM1NjI0ZWExIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtZmF5ZWQiLCJhZG1pbiIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsic3R1ZGVudC1tYW5hZ2VtZW50LXN5c3RlbSI6eyJyb2xlcyI6WyJjbGllbnRfYWRtaW4iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6ImthcmVlbSBmYXllZCIsInByZWZlcnJlZF91c2VybmFtZSI6ImthcmVlbSIsImdpdmVuX25hbWUiOiJrYXJlZW0iLCJmYW1pbHlfbmFtZSI6ImZheWVkIiwiZW1haWwiOiJrYXJlZW0uZmF5ZWQuMjAwMkBnbWFpbC5jb20ifQ.tXp4Fyb51bHsxZIpLK586QjkwuArFg307Pc7zJcO5UfwRiQMWZcAoid7caCvAmvRdMJyXHgrBTgE-twqTizhmON2_vpFLECspnvgLL1uWdPH3eexcvEFMFAPTA0aUMmibPvo4VsujdKKMq-yp500lI-ZQxdz4u4NYYUaJiStr_LwDqEp6KeaTSwCbEKyw2qhHTqUmmWzc2HxXsgyJYU9pYJzyDQTK-HcFTWZiymfGxYRawUQW9hgVCn0raAy9TvGQ6V0NZWGNYe76pN1xuLqI0OuAFdqUnSFiDSuvjJIVPJfBYOL5-xuUFxtZBagjmH4ewmQ1mTAEiAirX_TRsmbLQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/teachers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"teachers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one teacher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/teachers/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"teachers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Group",
+			"item": [
+				{
+					"name": "Add group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subject\": \"CHEMISTRY\",\n    \"grade\": \"FIFTH_GRADE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/groups/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"groups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add period",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"day\": \"MONDAY\",\n    \"startDate\": \"03:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/groups/2/periods",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"groups",
+								"2",
+								"periods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/groups?pageNum=0&pageSize=2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"groups"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "FOURTH_GRADE",
+									"disabled": true
+								},
+								{
+									"key": "pageNum",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Add Student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"hamada\",\n    \"lastName\": \"fathi\",\n    \"phoneNumber\": \"01838984487\",\n    \"address\": \"alex\",\n    \"grade\": \"FIFTH_GRADE\",\n    \"groupId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/students",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paidAt\": \"2025-04\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/students/1/payments",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"students",
+								"1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attend student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"attendedAt\": \"2025-01-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/students/2/attend/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"students",
+								"2",
+								"attend",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/students?monthDate=2025-04",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"students"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "FIFTH_GRADE",
+									"disabled": true
+								},
+								{
+									"key": "monthDate",
+									"value": "2025-04"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get attendance",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2025-01-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/students/attendance/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"students",
+								"attendance",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete payment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/students/payments/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"students",
+								"payments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Attendance",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/students/attend/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"students",
+								"attend",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:8081",
+			"type": "string"
+		}
+	]
+}
